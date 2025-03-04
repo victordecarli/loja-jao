@@ -5,6 +5,10 @@
     "moduleResolution": "node",
     "esModuleInterop": true, // Permite interoperabilidade com CommonJS
     "outDir": "./dist",
+    "baseUrl": ".",
+      "paths": {
+            "@/*": ["src/*"]
+    },
     "rootDir": "./src",
     "strict": true,
     "skipLibCheck": true,

@@ -1,5 +1,6 @@
-import mongoose, { Schema, Document } from 'mongoose';
-
+import { Schema, model, Document } from 'mongoose';
+import bcrypt from 'bcryptjs';
+import { applyUserMiddleware } from '@/middlewares/user.middleware'
 export interface IUser extends Document {
   name: string;
   email: string;
@@ -7,14 +8,19 @@ export interface IUser extends Document {
   role: 'user' | 'admin';
   createdAt: Date;
   updatedAt: Date;
+  comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
-const UserSchema: Schema<IUser> = new Schema(
+// Regex para validar formato de email (simplificado)
+const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+
+const UserSchema = new Schema<IUser>(
   {
     name: {
       type: String,
       required: true,
       trim: true,
+      unique: true,
     },
     email: {
       type: String,
@@ -22,6 +28,7 @@ const UserSchema: Schema<IUser> = new Schema(
       unique: true,
       trim: true,
       lowercase: true,
+      match: [emailRegex, 'Por favor, forneça um e-mail válido.']
     },
     password: {
       type: String,
@@ -38,4 +45,13 @@ const UserSchema: Schema<IUser> = new Schema(
   }
 );
 
-export default mongoose.model<IUser>('User', UserSchema);
+// Aplica o middleware de hash de senha
+applyUserMiddleware(UserSchema);
+
+// Método de instância para comparar a senha informada com o hash armazenado
+UserSchema.methods.comparePassword = async function(candidatePassword: string): Promise<boolean> {
+  return bcrypt.compare(candidatePassword, this.password);
+};
+
+const UserModel = model<IUser>('User', UserSchema);
+export default UserModel;

@@ -1,8 +1,8 @@
-import Product from './Product';
-import Category from './Category';
-import Order from './Order';
-import User from './User';
-import Brand from './Brand';
+import Product from '@/models/Product';
+import Category from '@/models/Category';
+import Order from '@/models/Order';
+import User from '@/models/User';
+import Brand from '@/models/Brand';
 
 export {
   Product,

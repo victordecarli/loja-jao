@@ -1,21 +1,25 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
+import { describe, it, expect, beforeAll, afterAll,beforeEach  } from 'vitest';
 import mongoose from 'mongoose';
-import Brand from '../models/Brand';
-import connectDB from '../config/db';
+import { Brand } from '@/models';
+import connectDB from '@/config/db';
 
 // Conectar ao banco de dados antes de todos os testes
 beforeAll(async () => {
   await connectDB(); // Usa a função de conexão
 });
 
+beforeEach(async () => {
+  await Brand.deleteMany({});
+});
+
 // Desconectar após todos os testes
 afterAll(async () => {
-  await mongoose.connection.dropDatabase();
-  await mongoose.connection.close();
+  await mongoose.connection.dropDatabase(); // Limpa o banco de dados
+  await mongoose.connection.close(); // Fecha a conexão
 });
 
 describe('Brand Model', () => {
-  it('should create a new brand', async () => {
+  it('deve atualizar uma marca', async () => {
     const brandData = {
       name: 'Nike',
       imageUrl: 'https://i.pinimg.com/736x/29/df/c6/29dfc6f05b80804c18913851a79c5140.jpg',
