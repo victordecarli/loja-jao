@@ -1,9 +1,9 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "app.ts",
   "scripts": {
-    "test": "vitest",
+    "test": "cross-env NODE_ENV=test vitest",
     "dev": "nodemon --exec ts-node app.ts",
     "start": "tsc && node app.js"
   },
@@ -16,16 +16,16 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "mongoose": "^8.12.0",
-    "mongoose-paginate-v2": "^1.9.0"
+    "mongoose-paginate-v2": "^1.9.0",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/mongoose": "^5.11.96",
     "@types/node": "^22.13.9",
+    "cross-env": "^7.0.3",
     "nodemon": "^3.1.9",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.8.2",
     "vitest": "^3.0.7"
   }
 }
