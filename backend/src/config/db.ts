@@ -1,4 +1,7 @@
 import mongoose from 'mongoose';
+import dotenv from "dotenv"
+
+dotenv.config();
 
 // Interface para a configuração do banco de dados
 interface DBConfig {
@@ -9,10 +12,10 @@ interface DBConfig {
 // Configurações para diferentes ambientes
 const dbConfig: { [key: string]: DBConfig } = {
   development: {
-    uri: 'mongodb://localhost:27017/devdb',
+    uri: process.env.MONGO_URI || 'mongodb://localhost:27017/devdb',
   },
   test: {
-    uri: 'mongodb://localhost:27017/testdb', 
+    uri: process.env.MONGO_URI || 'mongodb://localhost:27017/testdb', 
   },
   production: {
     uri: process.env.MONGO_URI || 'mongodb://localhost:27017/proddb',
