@@ -1,6 +1,17 @@
-import mongoose from 'mongoose';
+import mongoose, {Schema, Document, PaginateModel} from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
-const Schema = mongoose.Schema;
+
+interface IProducts extends Document {
+  name: string;
+  description?: string;
+  price: number;
+  category: mongoose.Types.ObjectId;
+  isActive: boolean;
+  imageUrl: string;
+  brand: mongoose.Types.ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 const ProductSchema = new Schema({
   name: {
@@ -8,7 +19,7 @@ const ProductSchema = new Schema({
     required: true,
     trim: true,
     minlength: 2,
-    maxLength:100,
+    maxlength: 100
   },
   description: {
     type: String,
@@ -31,20 +42,14 @@ const ProductSchema = new Schema({
   },
   imageUrl: {
     type: String,
+    required: true,
     trim: true,
     },
-    brand: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'Brand',
-    },
-     createdAt: {
-      type: Date,
-      default: Date.now,
-    },
-      updatedAt: {
-      type: Date,
-      default: Date.now,
-    },
+  brand: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Brand',
+    required:true
+  },
 }, {
   timestamps: true, // Adiciona createdAt e updatedAt automaticamente
 });
@@ -56,4 +61,7 @@ ProductSchema.plugin(mongoosePaginate);
 ProductSchema.index({ name: 1 }); // Índice para busca por nome
 ProductSchema.index({ category: 1, isActive: 1 }); // Índice para filtros comuns
 
-export default mongoose.model('Product', ProductSchema);
+
+const Product = mongoose.model<IProducts, PaginateModel<IProducts>>('Product', ProductSchema);
+
+export default Product;

@@ -1,7 +1,15 @@
-import mongoose from 'mongoose';
+import mongoose, {Schema, Document, PaginateModel} from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
-const Schema = mongoose.Schema;
+interface ICategory extends Document {
+   name: string;
+   imageUrl?: string;
+   parentCategory?: mongoose.Types.ObjectId;
+   isActive: boolean;
+   order: number;
+   createdAt: Date;
+   updatedAt: Date;
+}
 
 const CategorySchema = new Schema(
   {
@@ -41,5 +49,11 @@ CategorySchema.plugin(mongoosePaginate);
 CategorySchema.index({ name: 1 });
 CategorySchema.index({ parentCategory: 1 });
 
-// Exportação do modelo
-export default mongoose.model('Category', CategorySchema);
+export interface ICategoryModel extends PaginateModel<ICategory> {}
+
+const Category: ICategoryModel = mongoose.model<ICategory, ICategoryModel>(
+  'Category',
+  CategorySchema
+);
+
+export default Category;

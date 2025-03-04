@@ -7,7 +7,6 @@ interface IBrand extends Document {
     isActive: boolean;
     createdAt: Date;
     updatedAt: Date;
-    
 }
 
 const BrandSchema: Schema = new Schema<IBrand>(
@@ -27,14 +26,6 @@ const BrandSchema: Schema = new Schema<IBrand>(
       type: Boolean,
       default: true,
     },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
-    updatedAt: {
-      type: Date,
-      default: Date.now,
-    },
   },
   {
     timestamps: true, // Adiciona createdAt e updatedAt automaticamente
@@ -47,7 +38,9 @@ BrandSchema.plugin(mongoosePaginate);
 // Índice para busca por nome
 BrandSchema.index({ name: 1 });
 
-const Brand: PaginateModel<IBrand> = mongoose.model<IBrand, PaginateModel<IBrand>>('Brand', BrandSchema);
-
+const Brand: PaginateModel<IBrand> = mongoose.model<IBrand, PaginateModel<IBrand>>(
+  'Brand',
+  BrandSchema
+);
 // Exportação do modelo
 export default Brand;
