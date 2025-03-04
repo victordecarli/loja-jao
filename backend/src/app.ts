@@ -1,7 +1,8 @@
-// app.js
-require('dotenv').config(); // Carrega variáveis de ambiente do .env
+import express, { Request, Response } from 'express';
+import dotenv from 'dotenv';
 
-const express = require('express');
+dotenv.config(); // Carrega variáveis de ambiente do .env
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -9,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 // Rota de exemplo
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
   res.send('Backend rodando!');
 });
 
