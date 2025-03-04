@@ -1,0 +1,47 @@
+# Diretórios de dependências
+node_modules/
+dist/
+build/
+
+# Arquivos de ambiente e configuração sensível
+.env
+.env.local
+.env.*.local
+
+# Logs e relatórios
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Diretórios do Vite
+.vite/
+.cache/
+
+# Arquivos do editor/IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.bak
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Testes e cobertura de código
+coverage/
+*.lcov
+
+# Tipagens geradas automaticamente pelo TypeScript
+*.tsbuildinfo
+
+# Docker
+docker-compose.override.yml
+
+# AWS e outros serviços
+.aws/
