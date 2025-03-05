@@ -1,19 +1,19 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "esnext", // Usa ES Modules
+    "target": "ES2021",
+    "module": "ESNext", // Usa ES Modules
     "moduleResolution": "node",
     "esModuleInterop": true, // Permite interoperabilidade com CommonJS
-    "outDir": "./dist",
-    "baseUrl": ".",
-      "paths": {
-            "@/*": ["src/*"]
+    "outDir": "dist",
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"]
     },
     "rootDir": "./src",
     "strict": true,
     "skipLibCheck": true,
     "resolveJsonModule": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }
