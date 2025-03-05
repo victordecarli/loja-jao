@@ -1,5 +1,5 @@
-import mongoose, { Schema, Document } from 'mongoose';
-
+import mongoose, { Schema, Document,PaginateModel  } from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate-v2';
 export interface IOrderItem {
   product: mongoose.Types.ObjectId;
   quantity: number;
@@ -33,6 +33,7 @@ const OrderItemSchema = new Schema<IOrderItem>({
   },
 });
 
+
 const OrderSchema = new Schema<IOrder>(
   {
     user: {
@@ -65,4 +66,17 @@ const OrderSchema = new Schema<IOrder>(
   }
 );
 
-export default mongoose.model<IOrder>('Order', OrderSchema);
+OrderSchema.pre('save', function (next) {
+  // 'this' se refere ao documento de Order
+  if (this.items && this.items.length > 0) {
+    this.total = this.items.reduce((acc, item) => {
+      return acc + item.quantity * item.priceAtPurchase;
+    }, 0);
+  }
+  next();
+});
+
+OrderSchema.plugin(mongoosePaginate);
+
+const Order = mongoose.model<IOrder, PaginateModel<IOrder>>('Order', OrderSchema);
+export default Order;
