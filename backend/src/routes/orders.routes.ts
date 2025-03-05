@@ -1,13 +1,19 @@
-import { Router } from 'express';
-import { createProduct, getProduct, updateProduct, deleteProduct, listProducts } from '@/controllers/orderController';
-import { checkJwt } from '../middleware/checkJwt';
+import express from 'express';
+import {
+  createOrder,
+  getOrders,
+  getOrderById,
+  updateOrderStatus,
+  deleteOrder,
+} from '@/controllers/orderController';
 
-const router = Router();
+const router = express.Router();
 
-router.post('/', checkJwt, createProduct);
-router.get('/', listProducts);
-router.get('/:id', getProduct);
-router.put('/:id', checkJwt, updateProduct);
-router.delete('/:id', checkJwt, deleteProduct);
+// Rotas para pedidos
+router.post('/', createOrder); // Criar um novo pedido
+router.get('/', getOrders); // Listar todos os pedidos
+router.get('/:id', getOrderById); // Obter um pedido por ID
+router.put('/:id/status', updateOrderStatus); // Atualizar o status de um pedido
+router.delete('/:id', deleteOrder); // Deletar um pedido
 
 export default router;

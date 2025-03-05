@@ -1,13 +1,19 @@
-import { Router } from 'express';
-import { createProduct, getProduct, updateProduct, deleteProduct, listProducts } from '@/controllers/productController';
-import { checkJwt } from '../middleware/checkJwt';
+import express from 'express';
+import {
+  createProduct,
+  getProducts,
+  getProductById,
+  updateProduct,
+  deleteProduct,
+} from '@/controllers/productController';
 
-const router = Router();
+const router = express.Router();
 
-router.post('/', checkJwt, createProduct);
-router.get('/', listProducts);
-router.get('/:id', getProduct);
-router.put('/:id', checkJwt, updateProduct);
-router.delete('/:id', checkJwt, deleteProduct);
+// Rotas para produtos
+router.post('/', createProduct); // Criar um novo produto
+router.get('/', getProducts); // Listar todos os produtos
+router.get('/:id', getProductById); // Obter um produto por ID
+router.put('/:id', updateProduct); // Atualizar um produto
+router.delete('/:id', deleteProduct); // Deletar um produto
 
 export default router;

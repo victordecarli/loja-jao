@@ -1,13 +1,18 @@
 import { Router } from 'express';
-import { createBrand, getBrand, updateBrand, deleteBrand, listBrands } from '@/controllers/brandController';
-import { checkJwt } from '../middleware/checkJwt';
-
+import {
+  createBrand,
+  getBrands,
+  getBrandById,
+  updateBrand,
+  deleteBrand,
+} from '@/controllers/brandController';
 const router = Router();
 
-router.post('/', checkJwt, createBrand);
-router.get('/', listBrands);
-router.get('/:id', getBrand);
-router.put('/:id', checkJwt, updateBrand);
-router.delete('/:id', checkJwt, deleteBrand);
+// Rotas para marcas
+router.post('/', createBrand); // Criar uma nova marca
+router.get('/', getBrands); // Listar todas as marcas
+router.get('/:id', getBrandById); // Obter uma marca por ID
+router.put('/:id', updateBrand); // Atualizar uma marca
+router.delete('/:id', deleteBrand); // Deletar uma marca
 
 export default router;

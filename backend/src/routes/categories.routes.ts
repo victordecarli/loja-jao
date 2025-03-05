@@ -1,13 +1,13 @@
 import { Router } from 'express';
-import { createProduct, getProduct, updateProduct, deleteProduct, listProducts } from '@/controllers/categoryController';
-import { checkJwt } from '../middleware/checkJwt';
+import { createCategory, getCategories, getCategoryById, updateCategory, deleteCategory } from '@/controllers/categoryController';
 
 const router = Router();
 
-router.post('/', checkJwt, createCategory);
-router.get('/', listCategory);
-router.get('/:id', getCategory;
-router.put('/:id', checkJwt, updateCategory);
-router.delete('/:id', checkJwt, deleteCategory);
+router.post('/', createCategory); // Criar uma nova marca
+router.get('/', getCategories); // Listar todas as marcas
+router.get('/:id', getCategoryById); // Obter uma marca por ID
+router.put('/:id', updateCategory); // Atualizar uma marca
+router.delete('/:id', deleteCategory); // Deletar uma marca
+
 
 export default router;
